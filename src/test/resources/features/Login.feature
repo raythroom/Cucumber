@@ -2,7 +2,6 @@ Feature: Login Functionality
 
   Background:
     Given user is on the login page
-
     @Smoke
     @Regression
   Scenario: Successful login with valid credentials
