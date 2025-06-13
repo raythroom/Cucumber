@@ -1,21 +1,26 @@
 package hooks;
 
-import org.junit.After;
-import org.junit.Before;
-import org.openqa.selenium.WebDriver;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import utilities.DriverManager;
+import io.cucumber.java.Scenario;
 
 public class Hooks {
-    WebDriver driver;
+
     @Before
     public void setUp() {
-    // Initialize the WebDriver before each test
-        driver = DriverManager.getDriver();
+        // Initialize the WebDriver before each test
+        DriverManager.getDriver();
 
     }
+
     @After
-    public void tearDown() {
-    // Quit the WebDriver after each test
+    public void tearDown(Scenario scenario) {
+        // Log scenario details and quit WebDriver
+        if (scenario.isFailed()) {
+            System.out.println("Scenario failed: " + scenario.getName());
+            // Optionally, take a screenshot here
+        }
         DriverManager.quitDriver();
     }
 }

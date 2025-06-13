@@ -7,24 +7,30 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import static utilities.DriverManager.getDriver;
+
 public class LoginPage {
 
 
     // Define locators for the login page elements
 
-    @FindBy(how= How.ID,using= "user-name")
-    private WebElement  loginPage_UsernameField;
+    @FindBy(how = How.ID, using = "user-name")
+    private WebElement loginPage_UsernameField;
 
-    @FindBy(how=How.ID,using= "password")
+    @FindBy(how = How.ID, using = "password")
     private WebElement passwordField;
 
-    @FindBy(how=How.ID,using= "login-button")
+    @FindBy(how = How.ID, using = "login-button")
     private WebElement loginButton;
+
+    private final WebDriver driver;
 
     public LoginPage(WebDriver driver) {
         // Initialize the PageFactory elements
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
+
     // Method to enter username
     public void enterUsername(String username) {
         // Code to find the username field and enter the username
