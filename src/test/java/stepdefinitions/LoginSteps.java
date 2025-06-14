@@ -21,9 +21,10 @@ public class LoginSteps {
         driver.get(ConfigReader.get("base.url"));
     }
 
-    @When("user enters username {string} and password {string}")
-    public void user_enters_username_and_password(String userName, String password) {
-        loginPage.enterUsername(userName);
+
+    @When("^user enters (\\w+) and (\\w+)$")
+    public void user_enters_username_and_password(String username, String password) {
+        loginPage.enterUsername(username);
         loginPage.enterPassword(password);
     }
 
@@ -44,5 +45,29 @@ public class LoginSteps {
             System.out.println("Current URL is null, user is not redirected to the inventory page");
         }
 
+    }
+
+    @Then("user should see an error message")
+    public void user_should_see_an_error_message() {
+        if(loginPage.getErrorMessage().equals("Epic sadface: Password is required"))
+        {
+            Assert.assertEquals("Epic sadface: Password is required", loginPage.getErrorMessage());
+        }
+        else if(loginPage.getErrorMessage().equals("Epic sadface: Username is required"))
+        {
+            Assert.assertEquals("Epic sadface: Username is required", loginPage.getErrorMessage());
+        }
+        else if(loginPage.getErrorMessage().equals("Epic sadface: Username and password do not match any user in this service"))
+        {
+            Assert.assertEquals("Epic sadface: Username and password do not match any user in this service", loginPage.getErrorMessage());
+        }
+        else if(loginPage.getErrorMessage().equals("Epic sadface: Sorry, this user has been locked out."))
+        {
+            Assert.assertEquals("Epic sadface: Sorry, this user has been locked out.", loginPage.getErrorMessage());
+        }
+        else
+        {
+            Assert.fail("Unexpected error message: " + loginPage.getErrorMessage());
+        }
     }
 }
