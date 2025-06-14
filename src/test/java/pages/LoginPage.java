@@ -7,8 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
-import static utilities.DriverManager.getDriver;
-
 public class LoginPage {
 
 
@@ -22,6 +20,9 @@ public class LoginPage {
 
     @FindBy(how = How.ID, using = "login-button")
     private WebElement loginButton;
+
+    @FindBy(how = How.XPATH, using = "//div[normalize-space(@class)='error-message-container error']")
+    private WebElement errorMessage;
 
     private final WebDriver driver;
 
@@ -61,4 +62,8 @@ public class LoginPage {
 
     }
 
+    public String getErrorMessage() {
+        System.out.println("Error message: " + errorMessage.getText());
+        return errorMessage.getText();
+    }
 }
